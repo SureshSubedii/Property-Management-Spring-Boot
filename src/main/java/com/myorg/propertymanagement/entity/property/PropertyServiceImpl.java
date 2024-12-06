@@ -1,11 +1,6 @@
 package com.myorg.propertymanagement.entity.property;
 
-import com.myorg.propertymanagement.entity.manager.ManagerFacade;
-import com.myorg.propertymanagement.entity.property.dto.CreatePropertyDto;
-import com.myorg.propertymanagement.entity.property.dto.DeletePropertyDto;
-import com.myorg.propertymanagement.entity.property.dto.UpdatePropertyDto;
 import com.myorg.propertymanagement.entity.manager.Manager;
-import com.myorg.propertymanagement.entity.manager.ManagerServiceImpl;
 import com.myorg.propertymanagement.entity.manager.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
