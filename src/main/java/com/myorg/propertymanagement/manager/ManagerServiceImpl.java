@@ -1,8 +1,6 @@
-package com.myorg.propertymanagement.service;
+package com.myorg.propertymanagement.manager;
 
-import com.myorg.propertymanagement.dto.ManagerDTO;
-import com.myorg.propertymanagement.model.Manager;
-import com.myorg.propertymanagement.repository.ManagerRepository;
+import com.myorg.propertymanagement.manager.dto.ManagerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +9,17 @@ import java.util.Map;
 import java.util.Random;
 
 @Service
-public class ManagerServiceImpl implements  ManagerService {
+public class ManagerServiceImpl implements ManagerService {
     @Autowired
     ManagerRepository managerRepository;
 
     public  static final Map<String, Long> loggedInUsers = new HashMap<>();
 
-    public Manager createManager(ManagerDTO dto){
+    public Manager createManager(ManagerDto dto){
         return managerRepository.save(new Manager(dto));
     }
 
-    public String login(ManagerDTO manager){
+    public String login(ManagerDto manager){
         Manager loggedManager =  managerRepository.findByEmailAndPassword(manager.getEmail(), manager.getPassword()).orElseThrow(()-> new IllegalArgumentException("Invalid email or password"));
         String token = randomStringGenerator();
         loggedInUsers.put(token, loggedManager.getId());
@@ -30,7 +28,6 @@ public class ManagerServiceImpl implements  ManagerService {
     }
 
 
-    //Only for demo purpose since we are not using JWT yet
     public String randomStringGenerator(){
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         int length = 8;

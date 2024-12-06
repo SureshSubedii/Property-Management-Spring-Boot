@@ -1,10 +1,10 @@
-package com.myorg.propertymanagement.dto;
+package com.myorg.propertymanagement.manager.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class ManagerDTO {
+public class ManagerDto {
     private String email;
     private String password;
 

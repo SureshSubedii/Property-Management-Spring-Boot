@@ -1,9 +1,9 @@
-package com.myorg.propertymanagement.model;
+package com.myorg.propertymanagement.property;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.myorg.propertymanagement.dto.CreatePropertyDTO;
+import com.myorg.propertymanagement.property.dto.CreatePropertyDto;
+import com.myorg.propertymanagement.manager.Manager;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class Property {
     @JsonIgnore
     private Manager manager;
 
-    public Property(CreatePropertyDTO dto, Manager manager) {
+    public Property(CreatePropertyDto dto, Manager manager) {
         this.street = dto.getStreet();
         this.city = dto.getCity();
         this.description = dto.getDescription();

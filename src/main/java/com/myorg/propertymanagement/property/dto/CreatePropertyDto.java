@@ -1,11 +1,11 @@
-package com.myorg.propertymanagement.dto;
+package com.myorg.propertymanagement.property.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CreatePropertyDTO {
+public class CreatePropertyDto {
     private  String street;
     private String city;
     private String description;

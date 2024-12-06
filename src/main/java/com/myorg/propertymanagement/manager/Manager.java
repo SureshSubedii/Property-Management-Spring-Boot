@@ -1,7 +1,8 @@
-package com.myorg.propertymanagement.model;
+package com.myorg.propertymanagement.manager;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.myorg.propertymanagement.dto.ManagerDTO;
+import com.myorg.propertymanagement.manager.dto.ManagerDto;
+import com.myorg.propertymanagement.property.Property;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class Manager {
     private List<Property> properties;
 
 
-    public Manager(ManagerDTO dto){
+    public Manager(ManagerDto dto){
         this.email = dto.getEmail();
         this.password = dto.getPassword();
     }

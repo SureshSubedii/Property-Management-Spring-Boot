@@ -1,19 +1,18 @@
-package com.myorg.propertymanagement.service;
+package com.myorg.propertymanagement.property;
 
-import com.myorg.propertymanagement.dto.CreatePropertyDTO;
-import com.myorg.propertymanagement.dto.DeletePropertyDTO;
-import com.myorg.propertymanagement.dto.UpdatePropertyDTO;
-import com.myorg.propertymanagement.model.Manager;
-import com.myorg.propertymanagement.model.Property;
-import com.myorg.propertymanagement.repository.ManagerRepository;
-import com.myorg.propertymanagement.repository.PropertyRepository;
+import com.myorg.propertymanagement.property.dto.CreatePropertyDto;
+import com.myorg.propertymanagement.property.dto.DeletePropertyDto;
+import com.myorg.propertymanagement.property.dto.UpdatePropertyDto;
+import com.myorg.propertymanagement.manager.Manager;
+import com.myorg.propertymanagement.manager.ManagerServiceImpl;
+import com.myorg.propertymanagement.manager.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PropertyServiceImpl implements  PropertyService {
+public class PropertyServiceImpl implements PropertyService {
     @Autowired
     PropertyRepository propertyRepository;
 
@@ -27,7 +26,7 @@ public class PropertyServiceImpl implements  PropertyService {
         }
         return null;
     }
-    public Property addProperty(CreatePropertyDTO dto){
+    public Property addProperty(CreatePropertyDto dto){
         Long managerId = verifyTokenAndGetId(dto.getToken());
         if(managerId == null){
             throw new IllegalArgumentException();
@@ -38,7 +37,7 @@ public class PropertyServiceImpl implements  PropertyService {
         return this.propertyRepository.save(new Property(dto, manager));
 
     }
-    public String deleteProperty(DeletePropertyDTO dto){
+    public String deleteProperty(DeletePropertyDto dto){
         Long managerId = verifyTokenAndGetId(dto.getToken());
         Property property = this.propertyRepository.findByIdAndManagerId(dto.getPropertyId(), managerId).orElseThrow(IllegalArgumentException::new);
         if(managerId == null){
@@ -48,7 +47,7 @@ public class PropertyServiceImpl implements  PropertyService {
         return "Deleted Successfully";
     }
 
-    public Property updateProperty(UpdatePropertyDTO dto){
+    public Property updateProperty(UpdatePropertyDto dto){
         Long managerId = verifyTokenAndGetId(dto.getToken());
         Property property = this.propertyRepository.findByIdAndManagerId(dto.getPropertyId(), managerId).orElseThrow(IllegalArgumentException::new);
 
