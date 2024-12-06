@@ -45,8 +45,9 @@ public class PropertyFacade {
         NewPropertyResponseDto response = new NewPropertyResponseDto();
         try {
             response.setMessage("Property Updated Successfully");
-            response.setSuccess(true);
             response.setProperty(propertyService.updateProperty(body));
+            response.setSuccess(true);
+
         } catch (IllegalArgumentException e) {
             response.setMessage("Access Denied");
         }
