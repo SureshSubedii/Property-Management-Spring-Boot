@@ -4,9 +4,7 @@ import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.Optional;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -18,8 +16,8 @@ public class ManagerServiceImpl implements ManagerService {
         return managerRepository.save(manager);
     }
 
-    public Manager login(ManagerDto manager){
-        return managerRepository.findByEmailAndPassword(manager.getEmail(), manager.getPassword()).orElseThrow(()-> new IllegalArgumentException("Invalid email or password"));
+    public Optional<Manager> findManager(String email, String password){
+        return managerRepository.findByEmailAndPassword(email, password);
     }
 
 

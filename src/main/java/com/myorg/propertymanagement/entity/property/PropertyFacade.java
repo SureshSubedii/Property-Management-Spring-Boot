@@ -20,7 +20,7 @@ public class PropertyFacade {
             if(managerId == null){
                 throw new IllegalArgumentException();
             }
-            Manager manager = propertyService.findManager(managerId);
+            Manager manager = propertyService.findManager(managerId).orElseThrow(IllegalArgumentException::new);
             Property newProperty = propertyService.addProperty(new Property(body, manager));
             response.setMessage("Property Added Successfully");
             response.setProperty(newProperty);
@@ -38,9 +38,8 @@ public class PropertyFacade {
             if(managerId == null){
                 throw new IllegalArgumentException();
             }
-            System.out.println(managerId);
-
-            propertyService.deleteProperty(body.getPropertyId(), managerId);
+            Long propertyId = propertyService.findRightProperty(managerId, body.getPropertyId()).orElseThrow(IllegalArgumentException::new).getId();
+            propertyService.deleteProperty(propertyId);
             response.setMessage("Property Deleted Successfully");
             response.setSuccess(true);
         } catch (IllegalArgumentException e) {
@@ -54,20 +53,17 @@ public class PropertyFacade {
         NewPropertyResponse response = new NewPropertyResponse();
         try {
             Long managerId = verifyTokenAndGetId(body.getToken());
-            Property property = new Property();
 
             if(managerId == null){
                 throw new IllegalArgumentException();
             }
-            Property existingProperty = propertyService.findRightProperty(managerId, body.getPropertyId());
-            property.setCity(body.getCity());
-            property.setDescription(body.getDescription());
-            property.setStreet(body.getStreet());
+            Property existingProperty = propertyService.findRightProperty(managerId, body.getPropertyId()).orElseThrow(IllegalArgumentException::new);
+            existingProperty.setCity(body.getCity());
+            existingProperty.setDescription(body.getDescription());
+            existingProperty.setStreet(body.getStreet());
             response.setProperty(propertyService.updateProperty(existingProperty));
             response.setSuccess(true);
             response.setMessage("Property Updated Successfully");
-
-
         } catch (IllegalArgumentException e) {
             response.setMessage("Access Denied");
         }

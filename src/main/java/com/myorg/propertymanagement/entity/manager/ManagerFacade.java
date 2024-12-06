@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 @Component
@@ -38,7 +39,8 @@ public class ManagerFacade {
         LoginResponse response = new LoginResponse();
 
         try {
-            Manager loggedManager = managerService.login(body);
+            Manager loggedManager = managerService.findManager(body.getEmail(), body.getPassword())
+                    .orElseThrow(IllegalArgumentException::new);
             String token = randomStringGenerator();
             loggedInUsers.put(token, loggedManager.getId());
             System.out.println(loggedInUsers);
