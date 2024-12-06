@@ -1,4 +1,4 @@
-package com.myorg.propertymanagement.dto;
+package com.myorg.propertymanagement.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiResponseDto {
+public class ApiResponse {
     private boolean success = false;
     private String message;
 }

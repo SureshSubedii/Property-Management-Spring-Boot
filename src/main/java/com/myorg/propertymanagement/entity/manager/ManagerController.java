@@ -1,8 +1,8 @@
-    package com.myorg.propertymanagement.manager;
+    package com.myorg.propertymanagement.entity.manager;
 
-    import com.myorg.propertymanagement.manager.dto.LoginResponseDto;
-    import com.myorg.propertymanagement.manager.dto.SignUpResponseDto;
-    import com.myorg.propertymanagement.manager.dto.ManagerDto;
+    import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
+    import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
+    import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +18,12 @@
         ManagerFacade managerFacade;
 
         @PostMapping("/")
-        public ResponseEntity<SignUpResponseDto> signup(@RequestBody ManagerDto body) {
+        public ResponseEntity<SignUpResponse> signup(@RequestBody ManagerDto body) {
             return  ResponseEntity.ok(managerFacade.handleSignup(body));
         }
 
         @PostMapping("/auth")
-        public ResponseEntity<LoginResponseDto> login(@RequestBody ManagerDto body) {
+        public ResponseEntity<LoginResponse> login(@RequestBody ManagerDto body) {
             return ResponseEntity.ok(managerFacade.handleLogin(body));
         }
     }

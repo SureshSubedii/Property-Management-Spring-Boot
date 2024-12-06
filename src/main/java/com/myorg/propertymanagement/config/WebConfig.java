@@ -1,6 +1,6 @@
 package com.myorg.propertymanagement.config;
 
-import com.myorg.propertymanagement.interceptor.LogInterceptor;
+import com.myorg.propertymanagement.utils.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

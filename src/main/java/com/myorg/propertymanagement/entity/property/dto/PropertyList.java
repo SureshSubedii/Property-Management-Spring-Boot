@@ -1,7 +1,7 @@
-package com.myorg.propertymanagement.property.dto;
+package com.myorg.propertymanagement.entity.property.dto;
 
-import com.myorg.propertymanagement.dto.ApiResponseDto;
-import com.myorg.propertymanagement.property.Property;
+import com.myorg.propertymanagement.response.ApiResponse;
+import com.myorg.propertymanagement.entity.property.Property;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PropertyListDto extends ApiResponseDto {
+public class PropertyList extends ApiResponse {
     private List<Property> propertiesYouManage;
 }

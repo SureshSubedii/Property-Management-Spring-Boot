@@ -1,4 +1,4 @@
-package com.myorg.propertymanagement.manager;
+package com.myorg.propertymanagement.entity.manager;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

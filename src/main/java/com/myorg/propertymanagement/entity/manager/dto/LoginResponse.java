@@ -1,6 +1,6 @@
-package com.myorg.propertymanagement.manager.dto;
+package com.myorg.propertymanagement.entity.manager.dto;
 
-import com.myorg.propertymanagement.dto.ApiResponseDto;
+import com.myorg.propertymanagement.response.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponseDto  extends ApiResponseDto {
+public class LoginResponse extends ApiResponse {
     private String token;
 }

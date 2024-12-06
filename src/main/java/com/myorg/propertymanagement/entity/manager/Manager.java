@@ -1,8 +1,8 @@
-package com.myorg.propertymanagement.manager;
+package com.myorg.propertymanagement.entity.manager;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.myorg.propertymanagement.manager.dto.ManagerDto;
-import com.myorg.propertymanagement.property.Property;
+import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
+import com.myorg.propertymanagement.entity.property.Property;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

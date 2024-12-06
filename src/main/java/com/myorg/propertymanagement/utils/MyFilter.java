@@ -1,4 +1,4 @@
-package com.myorg.propertymanagement.filter;
+package com.myorg.propertymanagement.utils;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

@@ -1,4 +1,4 @@
-package com.myorg.propertymanagement.manager.dto;
+package com.myorg.propertymanagement.entity.manager.dto;
 
 import lombok.Getter;
 import lombok.Setter;

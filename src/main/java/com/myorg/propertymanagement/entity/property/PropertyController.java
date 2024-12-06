@@ -1,7 +1,7 @@
-package com.myorg.propertymanagement.property;
+package com.myorg.propertymanagement.entity.property;
 
-import com.myorg.propertymanagement.dto.ApiResponseDto;
-import com.myorg.propertymanagement.property.dto.*;
+import com.myorg.propertymanagement.response.ApiResponse;
+import com.myorg.propertymanagement.entity.property.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +14,22 @@ public class PropertyController {
     private PropertyFacade propertyFacade;
 
     @PostMapping("/")
-    public ResponseEntity<NewPropertyResponseDto> addProperty(@RequestBody CreatePropertyDto body) {
+    public ResponseEntity<NewPropertyResponse> addProperty(@RequestBody CreatePropertyDto body) {
         return ResponseEntity.ok(propertyFacade.handleAddProperty(body));
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<ApiResponseDto> deleteProperty(@RequestBody DeletePropertyDto body) {
+    public ResponseEntity<ApiResponse> deleteProperty(@RequestBody DeletePropertyDto body) {
         return ResponseEntity.ok(propertyFacade.handleDeleteProperty(body));
     }
 
     @PutMapping("/")
-    public ResponseEntity<ApiResponseDto> updateProperty(@RequestBody UpdatePropertyDto body) {
+    public ResponseEntity<ApiResponse> updateProperty(@RequestBody UpdatePropertyDto body) {
         return ResponseEntity.ok(propertyFacade.handleUpdateProperty(body));
     }
 
     @GetMapping("/{token}")
-    public ResponseEntity<PropertyListDto> listProperties(@PathVariable String token) {
+    public ResponseEntity<PropertyList> listProperties(@PathVariable String token) {
         return ResponseEntity.ok(propertyFacade.handleListProperties(token));
     }
 }

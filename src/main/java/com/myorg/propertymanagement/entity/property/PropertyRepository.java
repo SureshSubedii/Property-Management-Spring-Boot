@@ -1,4 +1,4 @@
-package com.myorg.propertymanagement.property;
+package com.myorg.propertymanagement.entity.property;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
