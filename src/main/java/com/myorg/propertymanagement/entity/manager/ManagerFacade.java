@@ -3,6 +3,7 @@ package com.myorg.propertymanagement.entity.manager;
 import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
 import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
 import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Component
+@Slf4j
 public class ManagerFacade {
 
     @Autowired
@@ -30,6 +32,8 @@ public class ManagerFacade {
             response.setSuccess(true);
         } catch (DataIntegrityViolationException e) {
             response.setMessage("Email already registered.");
+            log.error("Duplicate Email: {}", body);
+
         }
         return response;
 
@@ -37,6 +41,7 @@ public class ManagerFacade {
 
     public LoginResponse handleLogin(ManagerDto body) {
         LoginResponse response = new LoginResponse();
+
 
         try {
             Manager loggedManager = managerService.findManager(body.getEmail(), body.getPassword())
@@ -49,6 +54,8 @@ public class ManagerFacade {
             response.setToken(token);
         } catch (IllegalArgumentException e) {
             response.setMessage("Invalid email or password");
+            log.error("Login Failed due to wrong username or password.Parameters: {}", body);
+
         }
         return response;
 

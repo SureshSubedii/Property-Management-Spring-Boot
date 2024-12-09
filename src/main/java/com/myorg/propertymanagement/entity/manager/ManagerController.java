@@ -3,6 +3,7 @@
     import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
     import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
     import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
+    import lombok.extern.slf4j.Slf4j;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.PostMapping;

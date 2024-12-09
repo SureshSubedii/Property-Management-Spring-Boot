@@ -4,10 +4,12 @@ import com.myorg.propertymanagement.entity.manager.Manager;
 import com.myorg.propertymanagement.entity.manager.ManagerFacade;
 import com.myorg.propertymanagement.response.ApiResponse;
 import com.myorg.propertymanagement.entity.property.dto.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class PropertyFacade {
 
     @Autowired
@@ -27,6 +29,7 @@ public class PropertyFacade {
             response.setSuccess(true);
         } catch (IllegalArgumentException e) {
             response.setMessage("You are not logged in");
+            log.error("Adding property not allowed without authentication");
         }
         return response;
     }
@@ -44,6 +47,8 @@ public class PropertyFacade {
             response.setSuccess(true);
         } catch (IllegalArgumentException e) {
             response.setMessage("Access Denied");
+            log.error("Deletion of property not allowed");
+
         }
         return response;
 
@@ -66,6 +71,8 @@ public class PropertyFacade {
             response.setMessage("Property Updated Successfully");
         } catch (IllegalArgumentException e) {
             response.setMessage("Access Denied");
+            log.error("Update of property not allowed");
+
         }
         return response;
     }
@@ -84,6 +91,7 @@ public class PropertyFacade {
 
         } catch (IllegalArgumentException e) {
             response.setMessage("You are not logged in");
+            log.error("Access Denied");
         }
         return response;
     }
