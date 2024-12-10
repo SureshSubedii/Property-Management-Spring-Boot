@@ -4,12 +4,15 @@ import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Optional;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
     @Autowired
     ManagerRepository managerRepository;
+
+
 
 
     public Manager createManager(Manager manager){
@@ -19,6 +22,14 @@ public class ManagerServiceImpl implements ManagerService {
     public Optional<Manager> findManager(String email, String password){
         return managerRepository.findByEmailAndPassword(email, password);
     }
+    public Optional<Manager> findByEmail(String email){
+        return  managerRepository.findByEmail(email);
+
+    }
+
+
+
+
 
 
 

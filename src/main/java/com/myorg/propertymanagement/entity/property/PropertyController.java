@@ -18,9 +18,9 @@ public class PropertyController {
         return ResponseEntity.ok(propertyFacade.handleAddProperty(body));
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity<ApiResponse> deleteProperty(@RequestBody DeletePropertyDto body) {
-        return ResponseEntity.ok(propertyFacade.handleDeleteProperty(body));
+    @DeleteMapping("/{propertyId}")
+    public ResponseEntity<ApiResponse> deleteProperty(@PathVariable Long propertyId) {
+        return ResponseEntity.ok(propertyFacade.handleDeleteProperty(propertyId));
     }
 
     @PutMapping("/")
@@ -28,9 +28,9 @@ public class PropertyController {
         return ResponseEntity.ok(propertyFacade.handleUpdateProperty(body));
     }
 
-    @GetMapping("/{token}")
-    public ResponseEntity<PropertyList> listProperties(@PathVariable String token) {
-        return ResponseEntity.ok(propertyFacade.handleListProperties(token));
+    @GetMapping("/")
+    public ResponseEntity<PropertyList> listProperties( ) {
+        return ResponseEntity.ok(propertyFacade.handleListProperties());
     }
 }
 

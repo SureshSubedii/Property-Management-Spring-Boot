@@ -1,5 +1,6 @@
 package com.myorg.propertymanagement.utils;
 
+import com.myorg.propertymanagement.response.ResponseWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,16 +25,16 @@ public class LogInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         Map<String, String> parameters = getRequestParameters(request);
 
+        if (!(response instanceof ResponseWrapper)) {
+            ResponseWrapper responseWrapper = new ResponseWrapper((HttpServletResponse) response);
+            request.setAttribute("responseWrapper", responseWrapper);
+        }
+
         logger.info("Incoming request: Method={}, URI={}, Parameters={}", method, requestURI, parameters);
 
         startTimeThreadLocal.set(System.currentTimeMillis());
 
         return true;
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        logger.info("Post-handle: Status={}", response.getStatus());
     }
 
     @Override
@@ -44,7 +46,13 @@ public class LogInterceptor implements HandlerInterceptor {
         if (ex != null) {
             logger.error("Request completed with error: {}", ex.getMessage(), ex);
         } else {
-            logger.info("Request completed successfully: Status={}, TimeTaken={}ms", response.getStatus(), duration);
+            ResponseWrapper responseWrapper = (ResponseWrapper) request.getAttribute("responseWrapper");
+            String responseBody = "";
+            if (responseWrapper != null) {
+                responseBody = responseWrapper.getCapturedResponseBody();
+                responseWrapper.copyBodyToResponse();  // Ensure the body is written back to the response
+            }
+            logger.info("Request completed successfully: Response = {}, Status={}, TimeTaken={}ms", responseBody, response.getStatus(), duration);
         }
 
         startTimeThreadLocal.remove();

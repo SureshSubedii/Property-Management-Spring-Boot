@@ -1,11 +1,13 @@
 package com.myorg.propertymanagement.entity.property;
 
 import com.myorg.propertymanagement.entity.manager.Manager;
-import com.myorg.propertymanagement.entity.manager.ManagerFacade;
+import com.myorg.propertymanagement.entity.manager.ManagerInfo;
 import com.myorg.propertymanagement.response.ApiResponse;
 import com.myorg.propertymanagement.entity.property.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +20,9 @@ public class PropertyFacade {
     public NewPropertyResponse handleAddProperty(CreatePropertyDto body) {
         NewPropertyResponse response = new NewPropertyResponse();
         try {
-            Long managerId = verifyTokenAndGetId(body.getToken());
-            if(managerId == null){
-                throw new IllegalArgumentException();
-            }
+            UserDetails managerDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Long managerId = ((ManagerInfo) managerDetails).getId();
+
             Manager manager = propertyService.findManager(managerId).orElseThrow(IllegalArgumentException::new);
             Property newProperty = propertyService.addProperty(new Property(body, manager));
             response.setMessage("Property Added Successfully");
@@ -34,15 +35,16 @@ public class PropertyFacade {
         return response;
     }
 
-    public ApiResponse handleDeleteProperty(DeletePropertyDto body) {
+    public ApiResponse handleDeleteProperty(Long propertyId) {
         ApiResponse response = new ApiResponse();
         try {
-            Long managerId = verifyTokenAndGetId(body.getToken());
-            if(managerId == null){
-                throw new IllegalArgumentException();
-            }
-            Long propertyId = propertyService.findRightProperty(managerId, body.getPropertyId()).orElseThrow(IllegalArgumentException::new).getId();
-            propertyService.deleteProperty(propertyId);
+            UserDetails managerDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Long managerId = ((ManagerInfo) managerDetails).getId();
+
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++===");
+
+            Long property = propertyService.findRightProperty(managerId,propertyId).orElseThrow(IllegalArgumentException::new).getId();
+            propertyService.deleteProperty(property);
             response.setMessage("Property Deleted Successfully");
             response.setSuccess(true);
         } catch (IllegalArgumentException e) {
@@ -57,11 +59,9 @@ public class PropertyFacade {
     public NewPropertyResponse handleUpdateProperty(UpdatePropertyDto body) {
         NewPropertyResponse response = new NewPropertyResponse();
         try {
-            Long managerId = verifyTokenAndGetId(body.getToken());
+            UserDetails managerDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Long managerId = ((ManagerInfo) managerDetails).getId();
 
-            if(managerId == null){
-                throw new IllegalArgumentException();
-            }
             Property existingProperty = propertyService.findRightProperty(managerId, body.getPropertyId()).orElseThrow(IllegalArgumentException::new);
             existingProperty.setCity(body.getCity());
             existingProperty.setDescription(body.getDescription());
@@ -77,13 +77,12 @@ public class PropertyFacade {
         return response;
     }
 
-    public PropertyList handleListProperties(String token) {
+    public PropertyList handleListProperties() {
+        System.out.println("______________________________________");
         PropertyList response = new PropertyList();
+        UserDetails managerDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long managerId = ((ManagerInfo) managerDetails).getId();
         try {
-            Long managerId = verifyTokenAndGetId(token);
-            if(managerId == null){
-                throw new IllegalArgumentException();
-            }
             response.setPropertiesYouManage(propertyService.listProperties(managerId));
 
             response.setSuccess(true);
@@ -91,18 +90,10 @@ public class PropertyFacade {
 
         } catch (IllegalArgumentException e) {
             response.setMessage("You are not logged in");
-            log.error("Access Denied");
+            log.error("Denied. Unauthorized!");
         }
         return response;
     }
 
-
-    public Long verifyTokenAndGetId(String token){
-
-        if(ManagerFacade.loggedInUsers.containsKey(token)) {
-            return ManagerFacade.loggedInUsers.get(token);
-        }
-        return null;
-    }
 }
 

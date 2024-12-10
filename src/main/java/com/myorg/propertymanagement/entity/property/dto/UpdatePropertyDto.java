@@ -6,7 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UpdatePropertyDto {
-    private String token;
     private Long propertyId;
     private  String street;
     private String city;
