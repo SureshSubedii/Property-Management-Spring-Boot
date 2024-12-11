@@ -1,6 +1,5 @@
 package com.myorg.propertymanagement.security;
 
-import com.myorg.propertymanagement.entity.manager.ManagerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,14 +40,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/managers/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/managers/auth").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/property/{propertyId}").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/role/").hasAuthority("ADMIN")
                         .anyRequest().authenticated()).sessionManagement(sess -> sess
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore((Filter) authFilter, UsernamePasswordAuthenticationFilter.class);
-
-        ;
         return http.build();
     }
     @Bean

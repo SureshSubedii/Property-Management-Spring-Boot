@@ -35,7 +35,6 @@
         </createTable>
     </changeSet>
 
-<!--    foreign key-->
     <changeSet id="3" author="Suresh">
         <addForeignKeyConstraint
                 constraintName="fk_manager"
@@ -51,5 +50,40 @@
             <column name="manager_id"/>
         </createIndex>
     </changeSet>
+    <changeSet id="5" author="Suresh">
+        <createTable tableName="role">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+
+    <changeSet id="6" author="your_name">
+        <addColumn tableName="manager">
+            <column name="role_id" type="BIGSERIAL">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="7" author="Suresh">
+        <addForeignKeyConstraint
+                constraintName="fk_role"
+                baseTableName="manager"
+                baseColumnNames="role_id"
+                referencedTableName="role"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="8" author="Suresh">
+        <addUniqueConstraint constraintName="unique_role_name" tableName="role" columnNames="name"/>
+    </changeSet>
+
 
 </databaseChangeLog>

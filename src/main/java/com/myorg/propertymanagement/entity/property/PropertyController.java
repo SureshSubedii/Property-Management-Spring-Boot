@@ -4,6 +4,7 @@ import com.myorg.propertymanagement.response.ApiResponse;
 import com.myorg.propertymanagement.entity.property.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,5 +33,11 @@ public class PropertyController {
     public ResponseEntity<PropertyList> listProperties( ) {
         return ResponseEntity.ok(propertyFacade.handleListProperties());
     }
+    @GetMapping("/ALL")
+    public ResponseEntity<PropertyList> allProperties( ) {
+        return ResponseEntity.ok(propertyFacade.handleListProperties());
+    }
+
+//    @PreAuthorize("hasAuthorithy('ADMIN')")
 }
 

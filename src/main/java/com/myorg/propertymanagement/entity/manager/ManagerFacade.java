@@ -3,6 +3,7 @@ package com.myorg.propertymanagement.entity.manager;
 import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
 import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
 import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
+import com.myorg.propertymanagement.entity.role.RoleService;
 import com.myorg.propertymanagement.security.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ManagerFacade  {
     ManagerService managerService;
 
     @Autowired
+    RoleService roleService;
+
+    @Autowired
     private PasswordEncoder encoder;
 
     @Autowired
@@ -40,9 +44,11 @@ public class ManagerFacade  {
         SignUpResponse response = new SignUpResponse();
         try {
             body.setPassword(encoder.encode(body.getPassword()));
+            body.setRole(roleService.findRole("USER").orElseThrow());
             Manager newManager = managerService.createManager(new Manager(body));
             response.setData(newManager);
             response.setSuccess(true);
+            response.setMessage("Signup Successfull");
         } catch (DataIntegrityViolationException e) {
             response.setMessage("Email already registered.");
             log.error("Duplicate Email: {}", body);
