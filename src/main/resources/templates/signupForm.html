@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign Up</title>
+</head>
+<body style="margin-left:20%">
+<h1>Welcome to the sign-up form</h1>
+
+<form style="padding:5%" action="/managers/signup" method="post">
+    <label for="username">Email:</label>
+    <input type="text" id="username" name="email" style="margin-bottom: 3%; margin-left:21px">
+    <br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" style="margin-bottom: 3%;" />
+    <br>
+    <label >Role :</label>
+   User <input type="radio" value="USER" name="roleName">
+   Admin <input type="radio"  value= "ADMIN" name="roleName">
+    <br>
+
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

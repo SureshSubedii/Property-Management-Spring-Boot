@@ -40,6 +40,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/managers/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/managers/auth").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/managers/signup").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/managers/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/managers/form").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/managers/auth").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/property/all").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/role/").hasAuthority("ADMIN")
                         .anyRequest().authenticated()).sessionManagement(sess -> sess

@@ -53,6 +53,7 @@ public class ManagerFacade  {
             response.setMessage("Signup Successfull");
         } catch (DataIntegrityViolationException e) {
             response.setMessage("Email already registered.");
+            response.setSuccess(false);
             log.error("Duplicate Email: {}", body);
 
         }
