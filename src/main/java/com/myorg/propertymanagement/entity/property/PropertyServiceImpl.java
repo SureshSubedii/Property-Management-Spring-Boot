@@ -43,4 +43,9 @@ public class PropertyServiceImpl implements PropertyService {
         return this.propertyRepository.findAllByManagerId(managerId);
 
     }
+
+    @Override
+    public List<Property> findAllProperty() {
+        return  propertyRepository.findAll();
+    }
 }

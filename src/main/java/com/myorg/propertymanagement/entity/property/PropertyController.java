@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/property")
 public class PropertyController {
@@ -33,11 +35,10 @@ public class PropertyController {
     public ResponseEntity<PropertyList> listProperties( ) {
         return ResponseEntity.ok(propertyFacade.handleListProperties());
     }
-    @GetMapping("/ALL")
-    public ResponseEntity<PropertyList> allProperties( ) {
-        return ResponseEntity.ok(propertyFacade.handleListProperties());
+    @GetMapping("/all")
+    public ResponseEntity<List<Property>> allProperties( ) {
+        return ResponseEntity.ok(propertyFacade.getAllProperties());
     }
 
-//    @PreAuthorize("hasAuthorithy('ADMIN')")
 }
 

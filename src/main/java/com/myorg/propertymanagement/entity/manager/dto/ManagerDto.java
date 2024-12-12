@@ -8,6 +8,7 @@ import lombok.Setter;
 public class ManagerDto {
     private String email;
     private String password;
+    private String roleName;
     private Role role;
 
     @Override

@@ -13,4 +13,5 @@ public interface PropertyService {
     List<Property> listProperties(Long managerId);
     Optional<Manager> findManager(Long managerId);
     Optional<Property> findRightProperty(Long managerId, Long propertyId);
+    List<Property> findAllProperty();
 }

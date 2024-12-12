@@ -29,4 +29,11 @@ public class RoleFacade {
         return response;
 
     }
+    public Role findOrCreateRole(String name) {
+        return roleService.findRole(name).orElseGet(() -> {
+            Role newRole = new Role();
+            newRole.setName(name);
+            return roleService.addRole(newRole);
+        });
+    }
 }

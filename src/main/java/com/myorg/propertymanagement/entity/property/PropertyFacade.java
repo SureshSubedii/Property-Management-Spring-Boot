@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PropertyFacade {
@@ -93,6 +95,10 @@ public class PropertyFacade {
             log.error("Denied. Unauthorized!");
         }
         return response;
+    }
+
+    public List<Property> getAllProperties(){
+        return propertyService.findAllProperty();
     }
 
 }

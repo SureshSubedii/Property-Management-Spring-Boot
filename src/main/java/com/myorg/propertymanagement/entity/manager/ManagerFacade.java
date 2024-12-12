@@ -3,6 +3,8 @@ package com.myorg.propertymanagement.entity.manager;
 import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
 import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
 import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
+import com.myorg.propertymanagement.entity.role.Role;
+import com.myorg.propertymanagement.entity.role.RoleFacade;
 import com.myorg.propertymanagement.entity.role.RoleService;
 import com.myorg.propertymanagement.security.JwtService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +30,7 @@ public class ManagerFacade  {
     ManagerService managerService;
 
     @Autowired
-    RoleService roleService;
+    RoleFacade roleFacade;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -44,7 +46,7 @@ public class ManagerFacade  {
         SignUpResponse response = new SignUpResponse();
         try {
             body.setPassword(encoder.encode(body.getPassword()));
-            body.setRole(roleService.findRole("USER").orElseThrow());
+            body.setRole(roleFacade.findOrCreateRole(body.getRoleName()));
             Manager newManager = managerService.createManager(new Manager(body));
             response.setData(newManager);
             response.setSuccess(true);

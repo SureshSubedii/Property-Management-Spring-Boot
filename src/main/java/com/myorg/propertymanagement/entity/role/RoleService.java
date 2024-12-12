@@ -5,4 +5,5 @@ import java.util.Optional;
 public interface RoleService {
     Role addRole(Role role);
     Optional<Role> findRole(String name);
+
 }
