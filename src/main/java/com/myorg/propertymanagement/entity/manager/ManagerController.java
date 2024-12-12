@@ -9,10 +9,10 @@
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.beans.factory.annotation.Value;
     import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestBody;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.bind.annotation.*;
+
+    import java.util.List;
+    import java.util.Map;
 
     @RestController
     @RequestMapping("api/v1/managers")
@@ -34,6 +34,14 @@
             return ResponseEntity.ok(managerFacade.handleLogin(body));
         }
 
+        @GetMapping("/")
+        public ResponseEntity<Object> getManagers() {
+            System.out.println(managerFacade.getAllmanagers());
 
-    }
+            return ResponseEntity.ok().header("Content-Type", "application/json").body(managerFacade.getAllmanagers());
+        }
+
+
+
+        }
 

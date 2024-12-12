@@ -1,5 +1,8 @@
 package com.myorg.propertymanagement.entity.manager;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
 import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
 import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
@@ -20,6 +23,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -81,6 +87,20 @@ public class ManagerFacade  {
 
         }
         return response;
+
+    }
+    public  Object getAllmanagers()  {
+//        Map<String, Object> results =
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        List<JsonNode> jsonNodes = new ArrayList<>();
+//
+//        for (Map<String, Object> map : results) {
+//            String jsonString = (String) results.get("managers");
+//            JsonNode jsonNode = objectMapper.readTree(jsonString);
+//            jsonNodes.add(jsonNode);
+//        }
+
+        return managerService.findManagerWithProperties();
 
     }
 

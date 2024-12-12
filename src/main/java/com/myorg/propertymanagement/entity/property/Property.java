@@ -23,7 +23,7 @@ public class Property {
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Manager manager;
 
     public Property(CreatePropertyDto dto, Manager manager) {

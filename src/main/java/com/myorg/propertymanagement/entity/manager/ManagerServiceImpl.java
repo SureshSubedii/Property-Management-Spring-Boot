@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,6 +28,10 @@ public class ManagerServiceImpl implements ManagerService {
         return  managerRepository.findByEmail(email);
 
     }
+    public Object findManagerWithProperties(){
+        return this.managerRepository.findManagers().get("managers");
+    }
+
 
 
 
