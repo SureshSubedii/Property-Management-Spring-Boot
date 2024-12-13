@@ -82,6 +82,8 @@ public class PropertyFacade {
     public PropertyList handleListProperties() {
         System.out.println("______________________________________");
         PropertyList response = new PropertyList();
+//        log.info((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
         UserDetails managerDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long managerId = ((ManagerInfo) managerDetails).getId();
         try {
@@ -99,6 +101,11 @@ public class PropertyFacade {
 
     public List<Property> getAllProperties(){
         return propertyService.findAllProperty();
+    }
+
+    public List<Property> getPropertiesByEmail(String email){
+        return propertyService.findPropertyByEmail(email);
+
     }
 
 }

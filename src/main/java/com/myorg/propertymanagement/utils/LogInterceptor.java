@@ -25,11 +25,6 @@ public class LogInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         Map<String, String> parameters = getRequestParameters(request);
 
-        if (!(response instanceof ResponseWrapper)) {
-            ResponseWrapper responseWrapper = new ResponseWrapper((HttpServletResponse) response);
-            request.setAttribute("responseWrapper", responseWrapper);
-        }
-
         logger.info("Incoming request: Method={}, URI={}, Parameters={}", method, requestURI, parameters);
 
         startTimeThreadLocal.set(System.currentTimeMillis());
@@ -46,13 +41,7 @@ public class LogInterceptor implements HandlerInterceptor {
         if (ex != null) {
             logger.error("Request completed with error: {}", ex.getMessage(), ex);
         } else {
-            ResponseWrapper responseWrapper = (ResponseWrapper) request.getAttribute("responseWrapper");
-            String responseBody = "";
-            if (responseWrapper != null) {
-                responseBody = responseWrapper.getCapturedResponseBody();
-                responseWrapper.copyBodyToResponse();  // Ensure the body is written back to the response
-            }
-            logger.info("Request completed successfully: Response = {}, Status={}, TimeTaken={}ms", responseBody, response.getStatus(), duration);
+            logger.info("Request completed successfully:  , Status={}, TimeTaken={}ms", response.getStatus(), duration);
         }
 
         startTimeThreadLocal.remove();

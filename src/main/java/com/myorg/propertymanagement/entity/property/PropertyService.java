@@ -14,4 +14,5 @@ public interface PropertyService {
     Optional<Manager> findManager(Long managerId);
     Optional<Property> findRightProperty(Long managerId, Long propertyId);
     List<Property> findAllProperty();
+    List<Property> findPropertyByEmail(String email);
 }

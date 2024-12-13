@@ -44,8 +44,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
-    @Override
     public List<Property> findAllProperty() {
         return  propertyRepository.findAll();
+    }
+
+    public List<Property> findPropertyByEmail(String email){
+        return propertyRepository.findByEmail(email);
     }
 }

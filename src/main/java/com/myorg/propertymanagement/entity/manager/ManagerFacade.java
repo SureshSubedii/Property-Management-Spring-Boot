@@ -16,6 +16,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -75,6 +76,7 @@ public class ManagerFacade  {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword())
             );
+            log.info(String.valueOf(authentication.isAuthenticated()));
             if (authentication.isAuthenticated()) {
                 response.setToken(jwtService.generateToken(body.getEmail()));
                 response.setSuccess(true);

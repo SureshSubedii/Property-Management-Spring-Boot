@@ -13,5 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SignUpResponse extends ApiResponse {
     private Manager data = null;
+
+//    public Object getSuccess() {
+//    }
 }
 

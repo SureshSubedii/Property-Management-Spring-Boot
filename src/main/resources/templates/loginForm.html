@@ -4,9 +4,13 @@
     <title>Sign Up</title>
 </head>
 <body style="margin-left:20%">
-<h1>Welcome to the login form</h1>
 
-<form style="padding:5%" action="/managers/auth" method="post">
+<h1 th:text="${message}"> </h1>
+
+
+<h2>Welcome to the login form</h2>
+
+<form style="padding:5%" action="/auth" method="post">
     <label for="username">Email:</label>
     <input type="text" id="username" name="email" style="margin-bottom: 3%; margin-left:21px">
     <br>

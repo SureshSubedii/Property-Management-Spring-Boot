@@ -40,13 +40,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/managers/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/managers/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/managers/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/managers/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/managers/form").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/managers/auth").permitAll()
-
+                        .requestMatchers(HttpMethod.POST, "/signup").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/form").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/index.html").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/property/all").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/role/").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/managers/").hasAuthority("ADMIN")
+
                         .anyRequest().authenticated()).sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

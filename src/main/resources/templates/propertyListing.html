@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Property Listing</title>
+    <style>
+        button{
+        background-color: #0fbfbf;
+        margin-top: 2%;
+        color:white;
+        border:none;
+        padding:0.5%;
+        cursor:pointer
+
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body style="margin-left:20%">
+<p th:text="${message}"></p>
+<h2>Properties You Manage</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Property ID</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Description</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="property : ${properties}">
+        <td th:text="${property.id}"></td>
+        <td th:text="${property.street}"></td>
+        <td th:text="${property.city}"></td>
+        <td th:text="${property.description}"></td>
+
+        <td>
+            <a href="#" th:onclick="'deleteProperty(' + ${property.id} + '); return false;'">
+                Delete
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/properties/form?id=' + ${property.id} + '&street=' + ${property.street} + '&city=' + ${property.city} + '&description=' + ${property.description}}">
+                Edit
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/properties/form}">
+    <button type="button">Add New Property</button>
+</a>
+</body>
+</html>
+
+<script>
+    function deleteProperty(propertyId) {
+        if (confirm("Are you sure you want to delete this property?")) {
+            fetch('/api/v1/property/' + propertyId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Property deleted successfully!");
+                    window.location.reload();
+                } else {
+                    alert("Error deleting property");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error deleting property");
+            });
+        }
+    }
+</script>

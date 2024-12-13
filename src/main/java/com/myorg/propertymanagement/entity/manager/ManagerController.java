@@ -1,20 +1,19 @@
     package com.myorg.propertymanagement.entity.manager;
+    import io.swagger.v3.oas.annotations.tags.Tag;
+
 
     import com.myorg.propertymanagement.entity.manager.dto.LoginResponse;
     import com.myorg.propertymanagement.entity.manager.dto.SignUpResponse;
     import com.myorg.propertymanagement.entity.manager.dto.ManagerDto;
-    import com.myorg.propertymanagement.entity.role.dto.RoleDto;
-    import com.myorg.propertymanagement.response.ApiResponse;
-    import lombok.extern.slf4j.Slf4j;
+
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.beans.factory.annotation.Value;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
 
-    import java.util.List;
-    import java.util.Map;
 
     @RestController
+
     @RequestMapping("api/v1/managers")
     public class ManagerController {
 
@@ -25,6 +24,7 @@
         private String SECRET;
 
         @PostMapping("/")
+
         public ResponseEntity<SignUpResponse> signup(@RequestBody ManagerDto body) {
             return  ResponseEntity.ok(managerFacade.handleSignup(body));
         }
