@@ -57,6 +57,7 @@ public class MvcController {
         cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setMaxAge(3600);
+        cookie.setAttribute("SameSite", "Strict");
         response.addCookie(cookie);
 
         return "redirect:/properties";

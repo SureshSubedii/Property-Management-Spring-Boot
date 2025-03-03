@@ -27,10 +27,6 @@ public class ManagerInfo implements UserDetails {
         this.id = manager.getId();
         this.authority = new SimpleGrantedAuthority(manager.getRole().getName());
 
-//        this.authorities =List.of(manager.getRole()).stream()
-//                .map(role -> new  SimpleGrantedAuthority(manager.getRole().getName()))
-//                .collect(Collectors.toList());
-
         System.out.println("Granted authority: " + authority.getAuthority());
 
 

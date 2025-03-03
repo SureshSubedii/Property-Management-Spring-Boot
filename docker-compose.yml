@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    image: property-mgnt-app
+    container_name: spring_app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/mydb
+      DB_USERNAME: myuser
+      DB_PASSWORD: mypassword
+      SECRET: asdasdsadsad34786384975634879596dsadsadQJHSDAGJHDGfgsdsufjkopaetraWerAwer348773
+
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
